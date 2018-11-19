@@ -3,7 +3,7 @@ package io.altar.jseproject.model;
 public class Shelf {
 	private int shelfId;
 	private String capacity;
-	private int productId;
+	private int[] productId;
 	private double rentPrice;
 	
 	
@@ -27,12 +27,12 @@ public class Shelf {
 	}
 
 
-	public int getProductId() {
+	public int[] getProductId() {
 		return productId;
 	}
 
 
-	public void setProductId(int productId) {
+	public void setProductId(int[] productId) {
 		this.productId = productId;
 	}
 
