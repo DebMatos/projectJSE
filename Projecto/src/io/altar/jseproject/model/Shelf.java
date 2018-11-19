@@ -1,20 +1,12 @@
 package io.altar.jseproject.model;
 
-public class Shelf {
-	private int shelfId;
+public class Shelf extends Entity {
+	
 	private String capacity;
 	private int[] productId;
 	private double rentPrice;
 	
 	
-	public int getShelfId() {
-		return shelfId;
-	}
-
-
-	public void setShelfId(int shelfId) {
-		this.shelfId = shelfId;
-	}
 
 
 	public String getCapacity() {
@@ -47,9 +39,9 @@ public class Shelf {
 	}
 
 // Para prateleira vazia
-	public Shelf(int shelfId, String capacity, double rentPrice) {
+	public Shelf( String capacity, double rentPrice) {
 		
-		this.shelfId = shelfId;
+	
 		this.capacity = capacity;
 		this.rentPrice = rentPrice;
 	}

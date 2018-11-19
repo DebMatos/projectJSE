@@ -10,13 +10,13 @@ import io.altar.jseproject.model.Shelf;
 public class TextInterface {
 	
 	static int inInt;
-	static int ShelfId;
-	static Map<Integer, Shelf> shelvesMap=new HashMap<Integer, Shelf>();
+	static Long ShelfId;
+	static Map<Long, Shelf> shelvesMap=new HashMap<Long, Shelf>();
 	
 	
 	// Menu inicial
 	public static void ecraPrincipal() {
-		System.out.println("Por favor selecione uma das seguintes opções:");
+		System.out.println("Por favor selecione uma das seguintes opcoes:");
 		System.out.println("1) Listar produtos");
 		System.out.println("2) Listar prateleiras");
 		System.out.println("3) Sair");
@@ -46,12 +46,12 @@ public class TextInterface {
 
 	// Menu produtos
 	public static void ecraProducts() {
-		System.out.println("Por favor selecione uma das seguintes opções:");
+		System.out.println("Por favor selecione uma das seguintes opcoes:");
 		System.out.println("1) Criar novo produto");
 		System.out.println("2) Editar produto existente");
 		System.out.println("3) Consultar detalhe de um produto");
 		System.out.println("4) Remover um produto");
-		System.out.println("5) Voltar ao ecrã anterior");
+		System.out.println("5) Voltar ao ecra anterior");
 
 		Scanner sc = new Scanner(System.in);
 		String input = sc.nextLine();
@@ -84,12 +84,12 @@ public class TextInterface {
 
 	// Menu prateleiras
 	public static void ecraShelves() {
-		System.out.println("Por favor selecione uma das seguintes opções:");
+		System.out.println("Por favor selecione uma das seguintes opcoes:");
 		System.out.println("1) Criar nova prateleira");
 		System.out.println("2) Editar prateleira existente");
 		System.out.println("3) Consultar detalhe de uma prateleira");
 		System.out.println("4) Remover uma prateleira");
-		System.out.println("5) Voltar ao ecrã anterior");
+		System.out.println("5) Voltar ao ecra anterior");
 
 		Scanner sc = new Scanner(System.in);
 		String input = sc.nextLine();
@@ -160,11 +160,11 @@ Scanner sc =new Scanner(System.in);
 		Shelf shelf1= new	Shelf( ShelfId, inCap, rentD);
 		shelvesMap.put(ShelfId, shelf1);
 	
-		for (int id : shelvesMap.keySet()) {
+		for (Long id : shelvesMap.keySet()) {
 			// print the student id and age
 			System.out.println( "Id:"
 					+ shelvesMap.get(id).getShelfId() + "|  Capacidade: "+ shelvesMap.get(id).getCapacity()
-					+"|  Preço de aluguer/dia: " +shelvesMap.get(id).getRentPrice()+ "|  Produtos: "+
+					+"|  Preco de aluguer/dia: " +shelvesMap.get(id).getRentPrice()+ "|  Produtos: "+
 					shelvesMap.get(id).getProductId());
 		}
 		
