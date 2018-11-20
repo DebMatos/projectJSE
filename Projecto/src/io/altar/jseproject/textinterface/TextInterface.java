@@ -10,8 +10,8 @@ import io.altar.jseproject.model.Shelf;
 public class TextInterface {
 	
 	static int inInt;
-	static Long ShelfId;
-	static Map<Long, Shelf> shelvesMap=new HashMap<Long, Shelf>();
+	//static Long ShelfId;
+	//static Map<Long, Shelf> shelvesMap=new HashMap<Long, Shelf>();
 	
 	
 	// Menu inicial
@@ -156,17 +156,17 @@ Scanner sc =new Scanner(System.in);
 		System.out.println(" Preco de aluguer/dia:");
 		String inRent = sc.nextLine();
 		double rentD = Double.parseDouble(inRent);
-	     ShelfId++;
-		Shelf shelf1= new	Shelf( ShelfId, inCap, rentD);
-		shelvesMap.put(ShelfId, shelf1);
+	    // ShelfId++;
 	
-		for (Long id : shelvesMap.keySet()) {
+		//shelvesMap.put(ShelfId, shelf1);
+	
+	//	for (Long id : shelvesMap.keySet()) {
 			// print the student id and age
-			System.out.println( "Id:"
-					+ shelvesMap.get(id).getShelfId() + "|  Capacidade: "+ shelvesMap.get(id).getCapacity()
-					+"|  Preco de aluguer/dia: " +shelvesMap.get(id).getRentPrice()+ "|  Produtos: "+
-					shelvesMap.get(id).getProductId());
-		}
+		//	System.out.println( "Id:"
+		//			+ shelvesMap.get(id).getShelfId() + "|  Capacidade: "+ shelvesMap.get(id).getCapacity()
+		//			+"|  Preco de aluguer/dia: " +shelvesMap.get(id).getRentPrice()+ "|  Produtos: "+
+			//		shelvesMap.get(id).getProductId());
+	//	}
 		
 		ecraShelves();
 	}
