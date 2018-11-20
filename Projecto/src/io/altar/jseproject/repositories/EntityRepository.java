@@ -3,6 +3,7 @@ package io.altar.jseproject.repositories;
 import io.altar.jseproject.model.Entity;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public abstract class EntityRepository <T extends Entity> {
@@ -40,8 +41,8 @@ private Map<Long, T> map=new HashMap<Long, T>();
 		
 	}
 	
-	public Collection<T> getAll(){
-		return map.values();
+	public  Iterator<T> getAll(){
+		return map.values().iterator();
 	}
 	
 

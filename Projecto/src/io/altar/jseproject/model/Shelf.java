@@ -1,5 +1,7 @@
 package io.altar.jseproject.model;
 
+import java.util.Arrays;
+
 public class Shelf extends Entity {
 	
 	private String capacity;
@@ -44,6 +46,13 @@ public class Shelf extends Entity {
 	
 		this.capacity = capacity;
 		this.rentPrice = rentPrice;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Shelf "+this.getId()+" [capacity=" + capacity + ", rentPrice=" + rentPrice
+				+ "]";
 	}
 
 
