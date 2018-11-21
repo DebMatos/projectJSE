@@ -102,6 +102,35 @@ public class TextInterface {
 	// Prateleiras************************************ Done
 
 	public void ecraShelves() {
+		Scanner sc = new Scanner(System.in);
+		allShelves();
+		if(shelfRepository.isEmpty()){
+			
+			System.out.println("1) Criar nova prateleira");
+			System.out.println("2) Voltar ao ecra anterior");
+			String inputTemp = sc.nextLine();
+			if (verificaInput(inputTemp, "int") == true) {
+				int inInt = Integer.parseInt(inputTemp);
+			switch (inInt) {
+
+			case 1:
+				ecraNewShelf();
+				break;
+			case 2:
+				ecraPrincipal();
+				break;
+			default:
+				System.out.println(" Insira 1 ou 2");
+				ecraShelves();
+			}
+		} else if (verificaInput(inputTemp, "int") == false) {
+
+			System.out.println("Input invalido");
+			ecraShelves();
+		}
+			
+		}else{
+		
 		System.out.println("Por favor selecione uma das seguintes opcoes:");
 		System.out.println("1) Criar nova prateleira");
 		System.out.println("2) Editar prateleira existente");
@@ -109,7 +138,7 @@ public class TextInterface {
 		System.out.println("4) Remover uma prateleira");
 		System.out.println("5) Voltar ao ecra anterior");
 
-		Scanner sc = new Scanner(System.in);
+	
 
 		String inputTemp = sc.nextLine();
 		// verificaInputInt(input);
@@ -141,10 +170,11 @@ public class TextInterface {
 		} else if (verificaInput(inputTemp, "int") == false) {
 
 			System.out.println("Input invalido");
-			ecraProducts();
+			ecraShelves();
 		}
-
+		
 		sc.close();
+		}
 	}
 
 	// **********************************New Product
@@ -208,25 +238,21 @@ public class TextInterface {
 		Shelf shelf1 = new Shelf(inCap, rentDouble);
 		shelfRepository.save(shelf1);
 
-		Iterator<Shelf> it = shelfRepository.getAll();
-		while (it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
+	
 
 		ecraShelves();
 	}
 
-	// **********************************Edit Product
+	// **********************************Edit Shelves
 	// ************************************
 
 	public void ecraEditShelf() {
 		Scanner sc = new Scanner(System.in);
+if(shelfRepository.isEmpty()){
 
-		Iterator<Shelf> it = shelfRepository.getAll();
-		while (it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
-
+}
+else{
+	allShelves();
 		System.out.println(" Editar prateleira:");
 		System.out.println(" Insira o id da prateleira");
 		String inId = sc.nextLine();
@@ -275,26 +301,108 @@ public class TextInterface {
 			
 
 		}
-
+		System.out.println("Prateleira editada");
 		System.out.println(shelfRepository.findById(id).toString());
-
+		
+		ecraShelves();
+}
 	}
 
 	// **********************************Delete Shelf
 	// ************************************
 	public void ecraDeleteShelf() {
+		Scanner sc = new Scanner(System.in);
 
+		Iterator<Shelf> it = shelfRepository.getAll();
+		while (it.hasNext()) {
+			System.out.println(it.next().toString());
+		}
+
+		System.out.println(" Editar prateleira:");
+		System.out.println(" Insira o id da prateleira");
+		String inId = sc.nextLine();
+		Long id=null;
+		
+		if (verificaInput(inId, "long") == true) {
+			id = Long.parseLong(inId);
+
+			
+		    
+		} while (verificaInput(inId, "long") == false){
+			System.out.println("Input invalido");
+			System.out.println(" Insira o id da prateleira");
+			inId = sc.nextLine();
+		}
+		Shelf shelfAVer = shelfRepository.findById(id);
+		System.out.println(shelfAVer.toString());
+		System.out.println("Tem a certeza que quer apagar esta prateleira? ");
+		System.out.println("Precione s para apagar");
+		System.out.println("Precione n caso queira manter");
+		String conf=sc.nextLine();
+		if(conf.equals("s")){
+			shelfRepository.removeById(id);
+			allShelves();
+		}
+		else if(conf.equals("n")){
+			
+		}while (conf.equals("n")||conf.equals("s")== false){
+			System.out.println(shelfRepository.findById(id).toString());
+			System.out.println("Tem a certeza que quer apagar esta prateleira? ");
+			System.out.println("Precione s para apagar");
+			System.out.println("Precione n caso queira manter");
+		}
+		
 	}
 
 	// **********************************Shelf details
 	// ************************************
 	public void ecraDetailShelf() {
-		System.out.println(" Detalhes da prateleira:");
-		System.out.println(" Id");
-		System.out.println(" Capacidade");
-		System.out.println(" Id do produto");
-		System.out.println(" Preco de aluguer diario");
+		if (shelfRepository.isEmpty()){
+			
+		}
+		else{
+		
+		Scanner sc = new Scanner(System.in);
 
+		Iterator<Shelf> it = shelfRepository.getAll();
+		while (it.hasNext()) {
+			System.out.println(it.next().toString());
+		}
+
+		System.out.println(" Editar prateleira:");
+		System.out.println(" Insira o id da prateleira");
+		String inId = sc.nextLine();
+		Long id=null;
+		
+		if (verificaInput(inId, "long") == true) {
+			id = Long.parseLong(inId);
+if(hasId(id)){
+			Shelf shelfAVer = shelfRepository.findById(id);
+		
+		System.out.println(" Detalhes da prateleira:");
+		System.out.println(" Id: "+ shelfAVer.getId());
+		System.out.println(" Capacidade: "+shelfAVer.getCapacity());
+		System.out.println(" Produto:");
+		System.out.println(" Preco de aluguer/dia "+shelfAVer.getRentPrice());
+
+	String input =sc.nextLine();
+	if(input.equals("")){
+		ecraShelves();
+	}while(hasId(id)==false){
+		System.out.println(" Nao existe essa prateleira");
+		System.out.println(" Insira o id da prateleira");
+		inId = sc.nextLine();
+	}   
+		} 
+		while (verificaInput(inId, "long") == false){
+			System.out.println("Input invalido");
+			System.out.println(" Insira o id da prateleira");
+			inId = sc.nextLine();
+		}
+		
+	}
+		
+		}
 	}
 
 	// **********************************Geral
@@ -302,7 +410,27 @@ public class TextInterface {
 	public void sair() {
 
 	}
-
+	
+	public boolean hasId(Long id){
+		if(shelfRepository.findById(id)==null){
+			return false;
+		}else return true;
+	}
+	
+public void allShelves(){
+	if (shelfRepository.isEmpty()){
+		System.out.println("Ainda nao tem prateleiras");
+		System.out.println("");
+	}
+	else{
+	System.out.println("Prateleiras:");
+	
+	Iterator<Shelf> it = shelfRepository.getAll();
+	while (it.hasNext()) {
+		System.out.println(it.next().toString());
+	}}
+	System.out.println("");
+}
 	public boolean verificaInput(String input, String type) {
 
 		try {
@@ -326,6 +454,7 @@ public class TextInterface {
 		catch (Exception e) {
 
 			return false;
+			
 		}
 
 	}
