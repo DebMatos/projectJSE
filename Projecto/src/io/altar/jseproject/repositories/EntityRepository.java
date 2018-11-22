@@ -1,7 +1,6 @@
 package io.altar.jseproject.repositories;
 
 import io.altar.jseproject.model.Entity;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
