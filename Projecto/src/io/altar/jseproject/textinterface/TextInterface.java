@@ -104,88 +104,122 @@ public class TextInterface {
 	public void ecraShelves() {
 		Scanner sc = new Scanner(System.in);
 		allShelves();
-		if(shelfRepository.isEmpty()){
-			
+		if (shelfRepository.isEmpty()) {
+
 			System.out.println("1) Criar nova prateleira");
 			System.out.println("2) Voltar ao ecra anterior");
 			String inputTemp = sc.nextLine();
 			if (verificaInput(inputTemp, "int") == true) {
 				int inInt = Integer.parseInt(inputTemp);
-			switch (inInt) {
+				switch (inInt) {
 
-			case 1:
-				ecraNewShelf();
-				break;
-			case 2:
-				ecraPrincipal();
-				break;
-			default:
-				System.out.println(" Insira 1 ou 2");
+				case 1:
+					ecraNewShelf();
+					break;
+				case 2:
+					ecraPrincipal();
+					break;
+				default:
+					System.out.println(" Insira 1 ou 2");
+					ecraShelves();
+				}
+			} else if (verificaInput(inputTemp, "int") == false) {
+
+				System.out.println("Input invalido");
 				ecraShelves();
 			}
-		} else if (verificaInput(inputTemp, "int") == false) {
 
-			System.out.println("Input invalido");
-			ecraShelves();
-		}
-			
-		}else{
-		
-		System.out.println("Por favor selecione uma das seguintes opcoes:");
-		System.out.println("1) Criar nova prateleira");
-		System.out.println("2) Editar prateleira existente");
-		System.out.println("3) Consultar detalhe de uma prateleira");
-		System.out.println("4) Remover uma prateleira");
-		System.out.println("5) Voltar ao ecra anterior");
+		} else {
 
-	
+			System.out.println("Por favor selecione uma das seguintes opcoes:");
+			System.out.println("1) Criar nova prateleira");
+			System.out.println("2) Editar prateleira existente");
+			System.out.println("3) Consultar detalhe de uma prateleira");
+			System.out.println("4) Remover uma prateleira");
+			System.out.println("5) Voltar ao ecra anterior");
 
-		String inputTemp = sc.nextLine();
-		// verificaInputInt(input);
+			String inputTemp = sc.nextLine();
+			// verificaInputInt(input);
 
-		if (verificaInput(inputTemp, "int") == true) {
-			int inInt = Integer.parseInt(inputTemp);
+			if (verificaInput(inputTemp, "int") == true) {
+				int inInt = Integer.parseInt(inputTemp);
 
-			switch (inInt) {
+				switch (inInt) {
 
-			case 1:
-				ecraNewShelf();
-				break;
-			case 2:
-				ecraEditShelf();
-				break;
-			case 3:
-				ecraDetailShelf();
-				break;
-			case 4:
-				ecraDeleteShelf();
-				break;
-			case 5:
-				ecraPrincipal();
-				break;
-			default:
-				System.out.println(" Insira 1, 2, 3, 4 ou 5");
+				case 1:
+					ecraNewShelf();
+					break;
+				case 2:
+					ecraEditShelf();
+					break;
+				case 3:
+					ecraDetailShelf();
+					break;
+				case 4:
+					ecraDeleteShelf();
+					break;
+				case 5:
+					ecraPrincipal();
+					break;
+				default:
+					System.out.println(" Insira 1, 2, 3, 4 ou 5");
+					ecraShelves();
+				}
+			} else if (verificaInput(inputTemp, "int") == false) {
+
+				System.out.println("Input invalido");
 				ecraShelves();
 			}
-		} else if (verificaInput(inputTemp, "int") == false) {
 
-			System.out.println("Input invalido");
-			ecraShelves();
-		}
-		
-		sc.close();
+			sc.close();
 		}
 	}
 
 	// **********************************New Product
 	// ************************************
 	public void ecraNewProduct() {
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println(" Novo produto:");
 		System.out.println(" PVP");
+		String inPvp = sc.nextLine();
+		double pvp = 0.0;
+		if (verificaInput(inPvp, "double") == true) {
+			pvp = Double.parseDouble(inPvp);
+
+		} while (verificaInput(inPvp, "double") == false) {
+			System.out.println("Input invalido");
+			System.out.println(" PVP:");
+			inPvp = sc.nextLine();
+
+		}
 		System.out.println(" IVA");
-		System.out.println(" Discount value:");
+		String inIva= sc.nextLine();
+		double iva = 0.0;
+		if (verificaInput(inIva, "double") == true) {
+			iva = Double.parseDouble(inIva);
+
+		} while (verificaInput(inIva, "double") == false) {
+			System.out.println("Input invalido");
+			System.out.println(" IVA");
+			inIva = sc.nextLine();
+
+		}
+		System.out.println(" Desconto:");
+		String inD = sc.nextLine();
+		double desc = 0.0;
+		if (verificaInput(inD, "double") == true) {
+			desc = Double.parseDouble(inD);
+
+		} else if (verificaInput(inD, "double") == false) {
+			System.out.println("Input invalido");
+			System.out.println(" Desconto:");
+			inD = sc.nextLine();
+
+		}
 		System.out.println(" Escolha uma prateleira");
 
+		sc.close();
 	}
 	// **********************************Edit Product
 	// ************************************
@@ -229,7 +263,7 @@ public class TextInterface {
 		if (verificaInput(inRent, "double") == true) {
 			rentDouble = Double.parseDouble(inRent);
 
-		} else if (verificaInput(inRent, "double") == false) {
+		} while (verificaInput(inRent, "double") == false) {
 			System.out.println("Input invalido");
 			System.out.println(" Preco de aluguer/dia:");
 			inRent = sc.nextLine();
@@ -238,9 +272,8 @@ public class TextInterface {
 		Shelf shelf1 = new Shelf(inCap, rentDouble);
 		shelfRepository.save(shelf1);
 
-	
-
 		ecraShelves();
+		sc.close();
 	}
 
 	// **********************************Edit Shelves
@@ -248,64 +281,71 @@ public class TextInterface {
 
 	public void ecraEditShelf() {
 		Scanner sc = new Scanner(System.in);
-if(shelfRepository.isEmpty()){
+		if (shelfRepository.isEmpty()) {
 
-}
-else{
-	allShelves();
-		System.out.println(" Editar prateleira:");
-		System.out.println(" Insira o id da prateleira");
-		String inId = sc.nextLine();
-		Long id=null;
-		String inCap;
-		String inRent;
-		if (verificaInput(inId, "long") == true) {
-			id = Long.parseLong(inId);
-
-			
-		    
-		} while (verificaInput(inId, "long") == false){
-			System.out.println("Input invalido");
-			System.out.println(" Insira o id da prateleira");
-			inId = sc.nextLine();
-		}
-		Shelf shelfAEditar = shelfRepository.findById(id);
-		System.out.println(shelfRepository.findById(id).toString());
-		System.out.println(" Capacidade:" + shelfRepository.findById(id).getCapacity());
-	    inCap = sc.nextLine();
-		System.out.println(" Preco de aluguer/dia:" + shelfRepository.findById(id).getRentPrice());
-	    inRent = sc.nextLine();
-	    
-		if (!inCap.equals("")) {
-			shelfAEditar.setCapacity(inCap);
-			shelfRepository.updateById(shelfAEditar);
 		} else {
+			allShelves();
+			System.out.println(" Editar prateleira:");
+			System.out.println(" Insira o id da prateleira");
+			String inId = sc.nextLine();
+			Long id = null;
+			String inCap;
+			String inRent;
+			if (verificaInput(inId, "long") == true) {
+				id = Long.parseLong(inId);
 
-		
-	}
-		
-
-		if (!inRent.equals("")) {
-
-			while (verificaInput(inRent, "double") == false) {
+			}
+			while (verificaInput(inId, "long") == false ) {
 				System.out.println("Input invalido");
-				System.out.println(" Preco de aluguer/dia:");
-				inRent = sc.nextLine();
+				System.out.println(" Insira o id da prateleira");
+				inId = sc.nextLine();
+			}
+			while(hasId(id)==false) {
+				System.out.println("Não existe esse id");
+				System.out.println(" Insira o id da prateleira");
+				inId = sc.nextLine();
+				if (verificaInput(inId, "long") == true) {
+					id = Long.parseLong(inId);
+
+				}
+			
+			}
+			if(hasId(id)==true) {
+			Shelf shelfAEditar = shelfRepository.findById(id);
+			System.out.println(shelfRepository.findById(id).toString());
+			System.out.println(" Capacidade:" + shelfRepository.findById(id).getCapacity());
+			inCap = sc.nextLine();
+			System.out.println(" Preco de aluguer/dia:" + shelfRepository.findById(id).getRentPrice());
+			inRent = sc.nextLine();
+
+			if (!inCap.equals("")) {
+				shelfAEditar.setCapacity(inCap);
+				shelfRepository.updateById(shelfAEditar);
+			} else {
+
 			}
 
-			double rentDouble = Double.parseDouble(inRent);
-			shelfAEditar.setRentPrice(rentDouble);
-			shelfRepository.updateById(shelfAEditar);
-		} else {
+			if (!inRent.equals("")) {
 
-			
+				while (verificaInput(inRent, "double") == false) {
+					System.out.println("Input invalido");
+					System.out.println(" Preco de aluguer/dia:");
+					inRent = sc.nextLine();
+				}
 
+				double rentDouble = Double.parseDouble(inRent);
+				shelfAEditar.setRentPrice(rentDouble);
+				shelfRepository.updateById(shelfAEditar);
+			} else {
+
+			}
+			System.out.println("Prateleira editada");
+			System.out.println(shelfRepository.findById(id).toString());
+
+			ecraShelves();
+			sc.close();
+			}
 		}
-		System.out.println("Prateleira editada");
-		System.out.println(shelfRepository.findById(id).toString());
-		
-		ecraShelves();
-}
 	}
 
 	// **********************************Delete Shelf
@@ -318,119 +358,143 @@ else{
 			System.out.println(it.next().toString());
 		}
 
-		System.out.println(" Editar prateleira:");
+		System.out.println(" Apagar prateleira:");
 		System.out.println(" Insira o id da prateleira");
 		String inId = sc.nextLine();
-		Long id=null;
-		
+		Long id = null;
+
 		if (verificaInput(inId, "long") == true) {
 			id = Long.parseLong(inId);
 
-			
-		    
-		} while (verificaInput(inId, "long") == false){
+		}
+		while (verificaInput(inId, "long") == false) {
 			System.out.println("Input invalido");
 			System.out.println(" Insira o id da prateleira");
 			inId = sc.nextLine();
 		}
+		while(hasId(id)==false) {
+			System.out.println("Não existe esse id");
+			System.out.println(" Insira o id da prateleira");
+			inId = sc.nextLine();
+			if (verificaInput(inId, "long") == true) {
+				id = Long.parseLong(inId);
+
+			}
+		
+		}
+		if(hasId(id)==true) {
 		Shelf shelfAVer = shelfRepository.findById(id);
 		System.out.println(shelfAVer.toString());
 		System.out.println("Tem a certeza que quer apagar esta prateleira? ");
 		System.out.println("Precione s para apagar");
 		System.out.println("Precione n caso queira manter");
-		String conf=sc.nextLine();
-		if(conf.equals("s")){
+		String conf = sc.nextLine();
+		if (conf.equals("s")) {
 			shelfRepository.removeById(id);
-			allShelves();
-		}
-		else if(conf.equals("n")){
+			ecraShelves();
 			
-		}while (conf.equals("n")||conf.equals("s")== false){
+		} else if (conf.equals("n")) {
+			ecraShelves();
+		}
+		while (conf.equals("n")== false && conf.equals("s") == false) {
 			System.out.println(shelfRepository.findById(id).toString());
 			System.out.println("Tem a certeza que quer apagar esta prateleira? ");
 			System.out.println("Precione s para apagar");
 			System.out.println("Precione n caso queira manter");
 		}
-		
+		}
+		sc.close();
 	}
 
 	// **********************************Shelf details
 	// ************************************
 	public void ecraDetailShelf() {
-		if (shelfRepository.isEmpty()){
-			
-		}
-		else{
-		
-		Scanner sc = new Scanner(System.in);
+		if (shelfRepository.isEmpty()) {
 
-		Iterator<Shelf> it = shelfRepository.getAll();
-		while (it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
+		} else {
 
-		System.out.println(" Editar prateleira:");
-		System.out.println(" Insira o id da prateleira");
-		String inId = sc.nextLine();
-		Long id=null;
-		
-		if (verificaInput(inId, "long") == true) {
-			id = Long.parseLong(inId);
-if(hasId(id)){
-			Shelf shelfAVer = shelfRepository.findById(id);
-		
-		System.out.println(" Detalhes da prateleira:");
-		System.out.println(" Id: "+ shelfAVer.getId());
-		System.out.println(" Capacidade: "+shelfAVer.getCapacity());
-		System.out.println(" Produto:");
-		System.out.println(" Preco de aluguer/dia "+shelfAVer.getRentPrice());
+			Scanner sc = new Scanner(System.in);
 
-	String input =sc.nextLine();
-	if(input.equals("")){
-		ecraShelves();
-	}while(hasId(id)==false){
-		System.out.println(" Nao existe essa prateleira");
-		System.out.println(" Insira o id da prateleira");
-		inId = sc.nextLine();
-	}   
-		} 
-		while (verificaInput(inId, "long") == false){
-			System.out.println("Input invalido");
+			Iterator<Shelf> it = shelfRepository.getAll();
+			while (it.hasNext()) {
+				System.out.println(it.next().toString());
+			}
+
+			System.out.println(" Detalhes prateleira:");
 			System.out.println(" Insira o id da prateleira");
-			inId = sc.nextLine();
-		}
-		
-	}
-		
-		}
-	}
+			String inId = sc.nextLine();
+			Long id = null;
 
+			if (verificaInput(inId, "long") == true) {
+				id = Long.parseLong(inId);
+			}
+			while (verificaInput(inId, "long") == false) {
+				System.out.println("Input invalido");
+				System.out.println(" Insira o id da prateleira");
+				inId = sc.nextLine();
+			}
+			while(hasId(id)==false) {
+				System.out.println("Não existe esse id");
+				System.out.println(" Insira o id da prateleira");
+				inId = sc.nextLine();
+				if (verificaInput(inId, "long") == true) {
+					id = Long.parseLong(inId);
+
+				}
+			
+			}
+			if(hasId(id)==true) {
+					Shelf shelfAVer = shelfRepository.findById(id);
+
+					System.out.println(" Detalhes da prateleira:");
+					System.out.println(" Id: " + shelfAVer.getId());
+					System.out.println(" Capacidade: " + shelfAVer.getCapacity());
+					System.out.println(" Produto:");
+					System.out.println(" Preco de aluguer/dia " + shelfAVer.getRentPrice());
+
+					String input = sc.nextLine();
+					if (input.equals("")) {
+						ecraShelves();
+					}
+					while (hasId(id) == false) {
+						System.out.println(" Nao existe essa prateleira");
+						System.out.println(" Insira o id da prateleira");
+						inId = sc.nextLine();
+					}
+				}
+		sc.close();}
+
+			}
+
+	
 	// **********************************Geral
 	// ************************************
 	public void sair() {
 
 	}
-	
-	public boolean hasId(Long id){
-		if(shelfRepository.findById(id)==null){
+
+	public boolean hasId(Long id) {
+		if (shelfRepository.findById(id) == null) {
 			return false;
-		}else return true;
+		} else
+			return true;
 	}
-	
-public void allShelves(){
-	if (shelfRepository.isEmpty()){
-		System.out.println("Ainda nao tem prateleiras");
+
+	public void allShelves() {
+		if (shelfRepository.isEmpty()) {
+			System.out.println("Nao existem prateleiras");
+			System.out.println("");
+		} else {
+			System.out.println("Prateleiras:");
+
+			Iterator<Shelf> it = shelfRepository.getAll();
+			while (it.hasNext()) {
+				System.out.println(it.next().toString());
+			}
+		}
 		System.out.println("");
 	}
-	else{
-	System.out.println("Prateleiras:");
-	
-	Iterator<Shelf> it = shelfRepository.getAll();
-	while (it.hasNext()) {
-		System.out.println(it.next().toString());
-	}}
-	System.out.println("");
-}
+
 	public boolean verificaInput(String input, String type) {
 
 		try {
@@ -454,7 +518,7 @@ public void allShelves(){
 		catch (Exception e) {
 
 			return false;
-			
+
 		}
 
 	}
