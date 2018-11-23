@@ -5,11 +5,13 @@ import java.util.Arrays;
 public class Shelf extends Entity {
 	
 	private String capacity;
-	private long[] productId;
+	private Product product;
 	private double rentPrice;
 	
 	
 
+
+	
 
 	public String getCapacity() {
 		return capacity;
@@ -21,13 +23,13 @@ public class Shelf extends Entity {
 	}
 
 
-	public long[] getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 
 
-	public void setProductId(long[] productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 
@@ -41,19 +43,26 @@ public class Shelf extends Entity {
 	}
 
 
-	public Shelf(String capacity, long[] productId, double rentPrice) {
+	public Shelf(String capacity, Product product, double rentPrice) {
 
 		this.capacity = capacity;
-		this.productId = productId;
+		this.product = product;
+		this.rentPrice = rentPrice;
+	}
+	public Shelf(String capacity, double rentPrice) {
+
+		this.capacity = capacity;
+
 		this.rentPrice = rentPrice;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Shelf "+this.getId()+ "[capacity=" + capacity + ", productId=" + Arrays.toString(productId) + ", rentPrice=" + rentPrice
-				+ "]";
+		return "Shelf " +getId() +"[capacity=" + capacity + ", " +product + ", rentPrice=" + rentPrice + "]";
 	}
+
+
+	
 	
 
 

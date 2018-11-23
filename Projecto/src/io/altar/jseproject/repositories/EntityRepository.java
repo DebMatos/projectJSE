@@ -9,7 +9,7 @@ public abstract class EntityRepository<T extends Entity> {
 
 	private Map<Long, T> map = new HashMap<Long, T>();
 
-	private long actualId = 0;
+	private long actualId = 1;
 
 	public void save(T entidade) {
 		entidade.setId(actualId);
@@ -39,6 +39,12 @@ public abstract class EntityRepository<T extends Entity> {
 		return map.values().iterator();
 	}
 
+	
+	public void size(){
+		map.size();
+	
+	}
+	
 	public boolean isEmpty() {
 		if (map.isEmpty()) {
 			return true;
