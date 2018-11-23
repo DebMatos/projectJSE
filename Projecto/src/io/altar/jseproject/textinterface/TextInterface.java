@@ -491,17 +491,17 @@ public class TextInterface {
 			System.out.println("Insira o id de um produto");
 			inId = sc.nextLine();
 		}
-		while (hasId(id) == false) {
+		while (hasIdProd(id) == false) {
 			System.out.println("Nao existe esse id");
 			System.out.println("Insira o id de um produto");
 			inId = sc.nextLine();
-			if (verificaInput(inId, "long") == true) {
+			
 				id = Long.parseLong(inId);
 
-			}
+			
 
 		}
-		if (hasId(id) == true) {
+		if (hasIdProd(id) == true) {
 			Product prod = productRepository.findById(id);
 
 			System.out.println(" Detalhes do produto:");
@@ -644,6 +644,7 @@ public class TextInterface {
 				System.out.println("Insira um valor do tipo inteiro");
 				System.out.println(" Insira o id da prateleira");
 				inId = sc.nextLine();
+			
 			}if (verificaInput(inId, "long") == true) {
 				id = Long.parseLong(inId);
 
@@ -652,10 +653,10 @@ public class TextInterface {
 				System.out.println("Nao existe esse id");
 				System.out.println("Insira o id de uma prateleira");
 				inId = sc.nextLine();
-				if (verificaInput(inId, "long") == true) {
+		
 					id = Long.parseLong(inId);
 
-				}
+				
 
 			}
 			if (hasId(id) == true) {
