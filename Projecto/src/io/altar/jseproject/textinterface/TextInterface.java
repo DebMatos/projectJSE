@@ -509,7 +509,7 @@ public class TextInterface {
 			System.out.println(" PVP: "+prod.getPvp());
 			System.out.println(" IVA: "+prod.getIva());
 			System.out.println(" Discount value: "+prod.getDiscountValue());
-			System.out.println(" Prateleiras"+prod.getShelvesId());
+			System.out.println(" Prateleiras: "+prod.getShelvesId());
 			
 			
 	
