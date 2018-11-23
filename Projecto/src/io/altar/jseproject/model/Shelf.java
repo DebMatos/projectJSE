@@ -1,11 +1,11 @@
 package io.altar.jseproject.model;
 
-
+import java.util.Arrays;
 
 public class Shelf extends Entity {
 	
 	private String capacity;
-	private int[] productId;
+	private long[] productId;
 	private double rentPrice;
 	
 	
@@ -21,12 +21,12 @@ public class Shelf extends Entity {
 	}
 
 
-	public int[] getProductId() {
+	public long[] getProductId() {
 		return productId;
 	}
 
 
-	public void setProductId(int[] productId) {
+	public void setProductId(long[] productId) {
 		this.productId = productId;
 	}
 
@@ -40,20 +40,26 @@ public class Shelf extends Entity {
 		this.rentPrice = rentPrice;
 	}
 
-// Para prateleira vazia
-	public Shelf( String capacity, double rentPrice) {
-		
-	
+
+	public Shelf(String capacity, long[] productId, double rentPrice) {
+
 		this.capacity = capacity;
+		this.productId = productId;
 		this.rentPrice = rentPrice;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Shelf "+this.getId()+" [capacity=" + capacity + ", rentPrice=" + rentPrice
+		return "Shelf "+this.getId()+ "[capacity=" + capacity + ", productId=" + Arrays.toString(productId) + ", rentPrice=" + rentPrice
 				+ "]";
 	}
+	
+
+
+	
+
+
 
 
 	

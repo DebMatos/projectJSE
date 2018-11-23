@@ -1,5 +1,6 @@
 package io.altar.jseproject.textinterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -82,7 +83,7 @@ public class TextInterface {
 				}
 			} else if (verificaInput(inputTemp, "int") == false) {
 
-				System.out.println("Input invalido");
+				System.out.println("Insira um valor do tipo inteiro");
 				ecraShelves();
 			}
 
@@ -122,7 +123,7 @@ public class TextInterface {
 
 			} else if (verificaInput(inputTemp, "int") == false) {
 
-				System.out.println("Input invalido");
+				System.out.println("Insira um valor do tipo inteiro");
 				ecraProducts();
 			}
 
@@ -156,7 +157,7 @@ public class TextInterface {
 				}
 			} else if (verificaInput(inputTemp, "int") == false) {
 
-				System.out.println("Input invalido");
+				System.out.println("Insira um valor do tipo inteiro");
 				ecraShelves();
 			}
 
@@ -198,7 +199,7 @@ public class TextInterface {
 				}
 			} else if (verificaInput(inputTemp, "int") == false) {
 
-				System.out.println("Input invalido");
+				System.out.println("Insira um valor do tipo inteiro");
 				ecraShelves();
 			}
 
@@ -215,39 +216,42 @@ public class TextInterface {
 		System.out.println(" PVP");
 		String inPvp = sc.nextLine();
 		double pvp = 0.0;
-		if (verificaInput(inPvp, "double") == true) {
-			pvp = Double.parseDouble(inPvp);
-
-		}
+		
 		while (verificaInput(inPvp, "double") == false) {
-			System.out.println("Input invalido");
+			System.out.println("Insira um valor do tipo decimal");
 			System.out.println(" PVP:");
 			inPvp = sc.nextLine();
+
+		}
+		if (verificaInput(inPvp, "double") == true) {
+			pvp = Double.parseDouble(inPvp);
 
 		}
 		System.out.println(" IVA");
 		String inIva = sc.nextLine();
 		double iva = 0.0;
-		if (verificaInput(inIva, "double") == true) {
-			iva = Double.parseDouble(inIva);
-
-		}
+	
 		while (verificaInput(inIva, "double") == false) {
-			System.out.println("Input invalido");
+			System.out.println("Insira um valor do tipo decimal");
 			System.out.println(" IVA");
 			inIva = sc.nextLine();
+			
+		}
+		if (verificaInput(inIva, "double") == true) {
+			iva = Double.parseDouble(inIva);
 
 		}
 		System.out.println(" Desconto:");
 		String inD = sc.nextLine();
 		double desc = 0.0;
-		if (verificaInput(inD, "double") == true) {
-			desc = Double.parseDouble(inD);
-
-		} while (verificaInput(inD, "double") == false) {
-			System.out.println("Input invalido");
+	 while (verificaInput(inD, "double") == false) {
+			System.out.println("Insira um valor do tipo decimal");
 			System.out.println(" Desconto:");
 			inD = sc.nextLine();
+
+		}
+		if (verificaInput(inD, "double") == true) {
+			desc = Double.parseDouble(inD);
 
 		}
 		System.out.println("Escolha uma prateleira ou clique ENTER para criar produto sem prateleira");
@@ -265,6 +269,14 @@ public class TextInterface {
 		}
 		else{
 		
+			
+			while (verificaInput(inId, "long") == false) {
+				System.out.println("Insira um valor do tipo inteiro");
+				System.out.println("Escolha uma prateleira");
+				allShelvesIds();
+				inId= sc.nextLine();
+
+			}
 		if (verificaInput(inId, "long") == true) {
 			id = Long.parseLong(inId);	
 			
@@ -282,13 +294,7 @@ public class TextInterface {
 				ecraProducts();
 			}
 		}
-		while (verificaInput(inId, "long") == false) {
-			System.out.println("Input invalido");
-			System.out.println(" Escolha uma prateleira");
-			allShelvesIds();
-			inId= sc.nextLine();
-
-		}
+		
 		}
 		sc.close();
 	}
@@ -296,8 +302,100 @@ public class TextInterface {
 	// ************************************
 
 	public void ecraEditProduct() {
-		System.out.println(" Editar produto:");
-		System.out.println(" Insira o id do produto");
+		
+		Scanner sc = new Scanner(System.in);
+		if (productRepository.isEmpty()) {
+
+		} else {
+			allProducts();
+			System.out.println(" Editar produto:");
+			System.out.println(" Insira o id de um  produto");
+			String inId = sc.nextLine();
+			Long id = null;
+			String inIva;
+			String inPvp;
+			String inDesc;
+			
+			while (verificaInput(inId, "long") == false) {
+				System.out.println("Insira um valor do tipo inteiro");
+				System.out.println(" Insira o id de um produto");
+				inId = sc.nextLine();
+			}if (verificaInput(inId, "long") == true) {
+				id = Long.parseLong(inId);
+
+			}
+			while (hasIdProd(id) == false) {
+				System.out.println("Nao existe esse id");
+				System.out.println("Insira o id de um produto");
+				inId = sc.nextLine();
+				if (verificaInput(inId, "long") == true) {
+					id = Long.parseLong(inId);}
+			}
+			if (hasIdProd(id) == true) {
+				Product prodAEditar = productRepository.findById(id);
+				System.out.println(productRepository.findById(id).toString());
+				System.out.println(" PVP:" + productRepository.findById(id).getPvp());
+				inPvp = sc.nextLine();
+				System.out.println(" Iva:" + productRepository.findById(id).getIva());
+				inIva = sc.nextLine();
+				System.out.println(" Desconto:" + productRepository.findById(id).getDiscountValue());
+				inDesc = sc.nextLine();
+				System.out.println(" Prateleiras:" + productRepository.findById(id).getShelvesId());
+				
+					
+
+			if (!inPvp.equals("")) {
+				while (verificaInput(inPvp, "double") == false) {
+					System.out.println("Insira um valor do tipo double. Ex: 2.0");
+					System.out.println(" Pvp");
+					inPvp = sc.nextLine();
+					}
+			if (verificaInput(inPvp, "double") == true) {
+				double pvp = Double.parseDouble(inPvp);
+				prodAEditar.setPvp(pvp);
+					productRepository.updateById(prodAEditar);}
+			} else {
+
+				}
+		
+
+			if (!inIva.equals("")) {
+				while (verificaInput(inIva, "double") == false) {
+					System.out.println("Insira um valor do tipo double. Ex: 2.0");
+					System.out.println(" Iva");
+					inPvp = sc.nextLine();
+					}
+			if (verificaInput(inIva, "double") == true) {
+				double iva = Double.parseDouble(inPvp);
+				prodAEditar.setIva(iva);
+					productRepository.updateById(prodAEditar);}
+			} else {
+
+				}
+
+			if (!inDesc.equals("")) {
+				while (verificaInput(inDesc, "double") == false) {
+					System.out.println("Insira um valor do tipo double. Ex: 2.0");
+					System.out.println(" Desconto");
+					inDesc= sc.nextLine();
+					}
+			if (verificaInput(inDesc, "double") == true) {
+				double desc = Double.parseDouble(inDesc);
+				prodAEditar.setDiscountValue(desc);
+					productRepository.updateById(prodAEditar);}
+			} else {
+
+				}
+
+
+			
+			
+				System.out.println("Produto editado");
+			//	System.out.println(shelfRepository.findById(id).toString());
+
+				ecraShelves();
+				sc.close();
+			}}
 	}
 	// **********************************Delete Product
 	// ************************************
@@ -327,25 +425,71 @@ public class TextInterface {
 		System.out.println(" Nova prateleira:");
 		System.out.println(" Capacidade:");
 		String inCap = sc.nextLine();
-		// System.out.println(" Id do produto");
+		
 		System.out.println(" Preco de aluguer/dia:");
 		String inRent = sc.nextLine();
-		double rentDouble = 0.0;
-		if (verificaInput(inRent, "double") == true) {
-			rentDouble = Double.parseDouble(inRent);
-
-		}
+		double rentDouble = 0;
+		
 		while (verificaInput(inRent, "double") == false) {
-			System.out.println("Input invalido");
+			System.out.println("Insira um valor do tipo decimal.");
 			System.out.println(" Preco de aluguer/dia:");
 			inRent = sc.nextLine();
 
 		}
-		Shelf shelf1 = new Shelf(inCap, rentDouble);
-		shelfRepository.save(shelf1);
+		if (verificaInput(inRent, "double") == true) {
+			rentDouble = Double.parseDouble(inRent);
+
+		}
+		
+		System.out.println(" Id do produto");
+		
+		
+		System.out.println("Clique ENTER para criar prateleira sem produto");
+		allProductsIds();
+		String inId = sc.nextLine();
+		
+		long id;
+	    long[] productIds = null;
+       
+        
+		
+		if(inId.equals("")){
+			Shelf shelf1 = new Shelf(inCap, productIds, rentDouble);
+			shelfRepository.save(shelf1);
+			ecraShelves();
+		}
+		else{
+		
+			
+			while (verificaInput(inId, "long") == false) {
+				System.out.println("Insira um valor do tipo inteiro");
+				System.out.println("Escolha um produto");
+				allProductsIds();
+				inId= sc.nextLine();
+
+			}
+		if (verificaInput(inId, "long") == true) {
+			id = Long.parseLong(inId);	
+			
+			while (hasIdProd(id) == false) {
+				System.out.println("Nao existe esse id");
+				System.out.println(" Insira o id do produto");
+				inId = sc.nextLine();	
+				id = Long.parseLong(inId);
+
+			}
+			if (hasIdProd(id) == true) {
+				productIds[0]=id;
+				Shelf shelf1 = new Shelf(inCap, productIds, rentDouble);
+				shelfRepository.save(shelf1);
+				
+			}
+		}
+	
 
 		ecraShelves();
 		sc.close();
+		}
 	}
 
 	// **********************************Edit Shelves
@@ -358,23 +502,23 @@ public class TextInterface {
 		} else {
 			allShelves();
 			System.out.println(" Editar prateleira:");
-			System.out.println(" Insira o id da prateleira");
+			System.out.println(" Insira o id de uma prateleira");
 			String inId = sc.nextLine();
 			Long id = null;
 			String inCap;
 			String inRent;
-			if (verificaInput(inId, "long") == true) {
+			
+			while (verificaInput(inId, "long") == false) {
+				System.out.println("Insira um valor do tipo inteiro");
+				System.out.println(" Insira o id da prateleira");
+				inId = sc.nextLine();
+			}if (verificaInput(inId, "long") == true) {
 				id = Long.parseLong(inId);
 
 			}
-			while (verificaInput(inId, "long") == false) {
-				System.out.println("Input invalido");
-				System.out.println(" Insira o id da prateleira");
-				inId = sc.nextLine();
-			}
 			while (hasId(id) == false) {
 				System.out.println("Nao existe esse id");
-				System.out.println(" Insira o id da prateleira");
+				System.out.println("Insira o id de uma prateleira");
 				inId = sc.nextLine();
 				if (verificaInput(inId, "long") == true) {
 					id = Long.parseLong(inId);
@@ -389,6 +533,7 @@ public class TextInterface {
 				inCap = sc.nextLine();
 				System.out.println(" Preco de aluguer/dia:" + shelfRepository.findById(id).getRentPrice());
 				inRent = sc.nextLine();
+				
 
 				if (!inCap.equals("")) {
 					shelfAEditar.setCapacity(inCap);
@@ -400,19 +545,19 @@ public class TextInterface {
 				if (!inRent.equals("")) {
 
 					while (verificaInput(inRent, "double") == false) {
-						System.out.println("Input invalido");
+						System.out.println("Insira um valor do tipo double. Ex: 2.0");
 						System.out.println(" Preco de aluguer/dia:");
 						inRent = sc.nextLine();
 					}
-
+					if (verificaInput(inRent, "double") == true) {
 					double rentDouble = Double.parseDouble(inRent);
 					shelfAEditar.setRentPrice(rentDouble);
-					shelfRepository.updateById(shelfAEditar);
+					shelfRepository.updateById(shelfAEditar);}
 				} else {
 
 				}
 				System.out.println("Prateleira editada");
-				System.out.println(shelfRepository.findById(id).toString());
+			//	System.out.println(shelfRepository.findById(id).toString());
 
 				ecraShelves();
 				sc.close();
@@ -431,7 +576,7 @@ public class TextInterface {
 		}
 
 		System.out.println(" Apagar prateleira:");
-		System.out.println(" Insira o id da prateleira");
+		System.out.println("Insira o id da prateleira");
 		String inId = sc.nextLine();
 		Long id = null;
 
@@ -440,13 +585,13 @@ public class TextInterface {
 
 		}
 		while (verificaInput(inId, "long") == false) {
-			System.out.println("Input invalido");
-			System.out.println(" Insira o id da prateleira");
+			System.out.println("O id tem de ser um inteiro");
+			System.out.println("Insira o id da prateleira");
 			inId = sc.nextLine();
 		}
 		while (hasId(id) == false) {
 			System.out.println("Nao existe esse id");
-			System.out.println(" Insira o id da prateleira");
+			System.out.println("Insira o id da prateleira");
 			inId = sc.nextLine();
 			if (verificaInput(inId, "long") == true) {
 				id = Long.parseLong(inId);
@@ -493,7 +638,7 @@ public class TextInterface {
 			}
 
 			System.out.println(" Detalhes prateleira:");
-			System.out.println(" Insira o id da prateleira");
+			System.out.println("Insira o id da prateleira");
 			String inId = sc.nextLine();
 			Long id = null;
 
@@ -501,13 +646,13 @@ public class TextInterface {
 				id = Long.parseLong(inId);
 			}
 			while (verificaInput(inId, "long") == false) {
-				System.out.println("Input invalido");
-				System.out.println(" Insira o id da prateleira");
+				System.out.println("O id tem de ser um numero inteiro");
+				System.out.println("Insira o id da prateleira");
 				inId = sc.nextLine();
 			}
 			while (hasId(id) == false) {
 				System.out.println("Nao existe esse id");
-				System.out.println(" Insira o id da prateleira");
+				System.out.println("Insira o id de uma prateleira");
 				inId = sc.nextLine();
 				if (verificaInput(inId, "long") == true) {
 					id = Long.parseLong(inId);
@@ -529,8 +674,8 @@ public class TextInterface {
 					ecraShelves();
 				}
 				while (hasId(id) == false) {
-					System.out.println(" Nao existe essa prateleira");
-					System.out.println(" Insira o id da prateleira");
+					System.out.println("Nao existe essa prateleira");
+					System.out.println("Insira o id da prateleira");
 					inId = sc.nextLine();
 				}
 			}
@@ -544,7 +689,14 @@ public class TextInterface {
 	public void sair() {
 
 	}
+	public boolean hasIdProd(Long id) {
+		if (productRepository.findById(id) == null) {
+			return false;
+		} else
+			return true;
+	}
 
+	
 	public boolean hasId(Long id) {
 		if (shelfRepository.findById(id) == null) {
 			return false;
@@ -581,6 +733,24 @@ public class TextInterface {
 		}
 		System.out.println("");
 	}
+	
+	public void allProductsIds() {
+		if (productRepository.isEmpty()) {
+			System.out.println("Nao existem produtos");
+
+		} else {
+			System.out.println("Produtos:");
+			ArrayList<String> array = new ArrayList<String>();
+			Iterator<Product> it = productRepository.getAll();
+			while (it.hasNext()) {
+				String ids = it.next().getId().toString();
+				array.add(ids);
+			}
+			System.out.println(array);
+		}
+		System.out.println("");
+	}
+
 
 	public void allShelvesIds() {
 		if (shelfRepository.isEmpty()) {
@@ -620,10 +790,10 @@ public class TextInterface {
 			return true;
 		}
 
-		catch (Exception e) {
-
+		catch (NumberFormatException s) {
+	//System.out.println("Insira um numero");
 			return false;
-
+		
 		}
 
 	}
