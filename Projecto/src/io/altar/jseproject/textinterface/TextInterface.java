@@ -398,7 +398,7 @@ public class TextInterface {
 				System.out.println("Produto editado");
 			//	System.out.println(shelfRepository.findById(id).toString());
 
-				ecraShelves();
+				ecraProducts();
 				sc.close();
 			}}
 	}
@@ -639,6 +639,7 @@ public class TextInterface {
 			Long id = null;
 			String inCap;
 			String inRent;
+		String inProd;
 			
 			while (verificaInput(inId, "long") == false) {
 				System.out.println("Insira um valor do tipo inteiro");
@@ -667,7 +668,8 @@ public class TextInterface {
 				System.out.println(" Preco de aluguer/dia:" + shelfRepository.findById(id).getRentPrice());
 				inRent = sc.nextLine();
 				System.out.println(" Produto:"+shelfRepository.findById(id).getProduct());
-
+                inProd=sc.nextLine();
+				
 				if (!inCap.equals("")) {
 					shelfAEditar.setCapacity(inCap);
 					shelfRepository.updateById(shelfAEditar);
@@ -689,7 +691,9 @@ public class TextInterface {
 				} else {
 
 				}
-				
+				if(!inProd.equals(shelfRepository.findById(id).getProduct())){
+					
+				}
 				
 				System.out.println("Prateleira editada");
 			//	System.out.println(shelfRepository.findById(id).toString());
@@ -822,7 +826,7 @@ public class TextInterface {
 	// **********************************Geral
 	// ************************************
 	public void sair() {
-
+		System.exit(0);
 	}
 	public boolean hasIdProd(Long id) {
 		if (productRepository.findById(id) == null) {
