@@ -12,14 +12,17 @@ public class Product extends Entity{
 	
 	
 	public Product( ArrayList<Long> shelvesId, double discountValue, double iva, double pvp) {
-		
-
 		this.shelvesId = shelvesId;
 		this.discountValue = discountValue;
 		this.iva = iva;
 		this.pvp = pvp;
 	}
 	
+	public Product(double discountValue, double iva, double pvp) {
+		this.discountValue = discountValue;
+		this.iva = iva;
+		this.pvp = pvp;
+	}
 
 	public ArrayList<Long> getShelvesId() {
 		return shelvesId;

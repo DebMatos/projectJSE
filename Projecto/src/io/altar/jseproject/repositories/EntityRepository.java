@@ -20,7 +20,6 @@ public abstract class EntityRepository<T extends Entity> {
 	}
 
 	public T findById(Long id) {
-
 		return map.get(id);
 	}
 

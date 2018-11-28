@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Shelf extends Entity {
 	
 	private String capacity;
-	private Product product;
+	private Long productId;
 	private double rentPrice;
 	
 	
@@ -23,13 +23,13 @@ public class Shelf extends Entity {
 	}
 
 
-	public Product getProduct() {
-		return product;
+	public Long getProduct() {
+		return productId;
 	}
 
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(Long productId) {
+		this.productId = productId;
 	}
 
 
@@ -43,10 +43,10 @@ public class Shelf extends Entity {
 	}
 
 
-	public Shelf(String capacity, Product product, double rentPrice) {
+	public Shelf(String capacity, Long productId, double rentPrice) {
 
 		this.capacity = capacity;
-		this.product = product;
+		this.productId = productId;
 		this.rentPrice = rentPrice;
 	}
 	public Shelf(String capacity, double rentPrice) {
@@ -58,7 +58,7 @@ public class Shelf extends Entity {
 
 	@Override
 	public String toString() {
-		return "Shelf " +getId() +"[capacity=" + capacity + ", " +product + ", rentPrice=" + rentPrice + "]";
+		return "Shelf " +getId() +"[capacity=" + capacity + ", productId=" +productId + ", rentPrice=" + rentPrice + "]";
 	}
 
 
